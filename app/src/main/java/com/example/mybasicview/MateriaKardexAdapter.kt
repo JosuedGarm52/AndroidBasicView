@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import android.widget.Toast
 
 class MateriaKardexAdapter() : RecyclerView.Adapter<MateriaKardexAdapter.ViewHolder>() {
-
     class ViewHolder(materia_kardex_item: View) : RecyclerView.ViewHolder(materia_kardex_item) {
         val tvMateria = materia_kardex_item.findViewById<TextView>(R.id.tvMateria)
         val tvCalificacion = materia_kardex_item.findViewById<TextView>(R.id.tvCalificacion)
@@ -35,6 +35,12 @@ class MateriaKardexAdapter() : RecyclerView.Adapter<MateriaKardexAdapter.ViewHol
         holder.bind(Singleton.kardex[position])
 
         //holder.tvMateria.text = Singleton.kardex[position].materia
+
+        //si da en holder.tvMateria.setOnClickListener para solo ese elemento
+        //para cualquier parte del elemento es con itemView
+        holder.itemView.setOnClickListener { v ->
+            Toast.makeText(holder.itemView.context, "Clic a ${Singleton.kardex[position].materia}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun getItemCount(): Int {
