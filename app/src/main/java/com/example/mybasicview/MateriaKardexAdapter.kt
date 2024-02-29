@@ -29,7 +29,7 @@ class MateriaKardexAdapter(val xyz: (Materia) -> Unit) : RecyclerView.Adapter<Ma
         viewType: Int
     ): MateriaKardexAdapter.ViewHolder {
         val materia_kardex_item = LayoutInflater.from(parent.context).inflate(R.layout.materia_kardex_item,parent,false)
-        return MateriaKardexAdapter.ViewHolder(materia_kardex_item)
+        return MateriaKardexAdapter.ViewHolder(materia_kardex_item,xyz)
     }
 
     override fun onBindViewHolder(
@@ -41,6 +41,9 @@ class MateriaKardexAdapter(val xyz: (Materia) -> Unit) : RecyclerView.Adapter<Ma
         //holder.tvMateria.text = Singleton.kardex[position].materia
 
 
+        holder.itemView.setOnClickListener{
+            xyz(Singleton.kardex[position])
+        }
     }
 
     override fun getItemCount(): Int {
