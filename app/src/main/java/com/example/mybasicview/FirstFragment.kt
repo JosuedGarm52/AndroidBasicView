@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mybasicview.databinding.FragmentFirstBinding
@@ -37,9 +38,15 @@ class FirstFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }*/
 
-        val adapter = MateriaKardexAdapter()
+        val adapter = MateriaKardexAdapter{
+            onItemClick(it)
+        }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun onItemClick(it: Materia) {
+        Toast.makeText(requireContext(), "Clic a ${it.materia}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
