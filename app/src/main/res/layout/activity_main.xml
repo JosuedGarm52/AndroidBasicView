@@ -20,15 +20,32 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main"/>
+    <include layout="@layout/content_main_actcom"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="72dp"
+        android:layout_height="56dp"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email"
-        android:contentDescription="@string/todo" />
+        android:contentDescription="@string/todo"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <Button
+        android:id="@+id/btnActComp"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="16dp"
+        android:text="@string/actividad_ncomplementaria" />
+    <Button
+        android:id="@+id/btnMateria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="11dp"
+        android:text="@string/materia" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -45,4 +45,8 @@
     </string>
     <string name="third_fragment_label">"Third Fragment"</string>
     <string name="todo">TODO</string>
+    <string name="button">Button</string>
+    <string name="materia">Materia</string>
+    <string name="actividad_ncomplementaria">Actividad \nComplementaria</string>
+    <string name="fragmentrecycleractcomp">FragmentRecyclerActComp</string>
 </resources>

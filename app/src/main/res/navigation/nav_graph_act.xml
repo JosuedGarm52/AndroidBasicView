@@ -2,7 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_act">
+    android:id="@+id/nav_graph_act"
+    app:startDestination="@id/FragmentRecyclerActComp">
 
     <fragment
         android:id="@+id/FragmentRecyclerActComp"
@@ -14,6 +15,7 @@
             android:id="@+id/action_FragmentRecyclerActComp_to_FragmentFormActComp"
             app:destination="@id/FragmentFormActComp" />
     </fragment>
+
     <fragment
         android:id="@+id/FragmentFormActComp"
         android:name="com.example.mybasicview.FragmentMenuActComp"

@@ -16,6 +16,7 @@ import com.example.mybasicview.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var myAppBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +36,21 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
-
-
+        //agregado por mi
+        //otro boton que manda al materia recyclerview
+        binding.btnMateria.setOnClickListener{ view ->
+            findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_FirstFragment_to_SecondFragment)
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
+        val myNavController = findNavController(R.id.nav_host_fragment_content_main)
+        myAppBarConfiguration = AppBarConfiguration(myNavController.graph)
+        setupActionBarWithNavController(myNavController, myAppBarConfiguration)
+        binding.btnActComp.setOnClickListener{ view ->
+            findNavController(R.id.nav_host_fragment_content_actcom).navigate(R.id.action_FragmentRecyclerActComp_to_FragmentFormActComp)
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
