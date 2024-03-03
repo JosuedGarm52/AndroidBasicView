@@ -38,18 +38,64 @@ class MainActivity : AppCompatActivity() {
         }
         //agregado por mi
         //otro boton que manda al materia recyclerview
-        binding.btnMateria.setOnClickListener{ view ->
-            findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_FirstFragment_to_SecondFragment)
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        binding.btnMateria.setOnClickListener { view ->
+            val currentDestinationId = findNavController(R.id.nav_host_fragment_content_main).currentDestination?.id
+
+            // Verifica el fragmento actual y realiza la acción correspondiente
+            when (currentDestinationId) {
+                R.id.FirstFragment -> {
+                    findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_FirstFragment_to_SecondFragment)
+                    Snackbar.make(view, "Replace with your own action for FirstFragment", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                }
+                R.id.SecondFragment -> {
+                    findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_SecondFragment_to_FirstFragment)
+
+                }
+                R.id.FragmentRecyclerActComp -> {
+                    findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_FragmentRecyclerActComp_to_FirstFragment)
+
+                }
+                R.id.FragmentFormActComp -> {
+                    findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_FragmentFormActComp_to_FirstFragment)
+
+                }
+                else -> {
+                    Snackbar.make(view, "Pulsa otro boton", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                }
+            }
         }
+
         val myNavController = findNavController(R.id.nav_host_fragment_content_main)
         myAppBarConfiguration = AppBarConfiguration(myNavController.graph)
         setupActionBarWithNavController(myNavController, myAppBarConfiguration)
         binding.btnActComp.setOnClickListener{ view ->
-            findNavController(R.id.nav_host_fragment_content_actcom).navigate(R.id.action_FragmentRecyclerActComp_to_FragmentFormActComp)
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val currentDestinationId = findNavController(R.id.nav_host_fragment_content_main).currentDestination?.id
+
+
+            when (currentDestinationId) {
+                R.id.FragmentRecyclerActComp -> {
+                    findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_FragmentRecyclerActComp_to_FragmentFormActComp)
+
+                }
+                R.id.FragmentFormActComp -> {
+                    findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_FragmentFormActComp_to_FragmentRecyclerActComp)
+
+                }
+                R.id.FirstFragment -> {
+                    findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_FirstFragment_to_FragmentRecyclerActComp)
+
+                }
+                R.id.SecondFragment -> {
+                    findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_SecondFragment_to_FragmentRecyclerActComp)
+
+                }
+                else -> {
+                    Snackbar.make(view, "Pulsa otro boton", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                }
+            }
         }
     }
 
