@@ -1,6 +1,7 @@
 package com.example.mybasicview
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mybasicview.databinding.FragmentFirstBinding
+import kotlin.math.log
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -46,11 +48,16 @@ class FirstFragment : Fragment() {
     }
 
     private fun onItemClick(it: Materia) {
+        Log.d("FirstFragment", "onItem clic")
         Toast.makeText(requireContext(), "Clic a ${it.materia}", Toast.LENGTH_SHORT).show()
+
+        val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(it.clave_materia)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }

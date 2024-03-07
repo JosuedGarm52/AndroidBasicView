@@ -13,13 +13,19 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_FirstFragment_to_FragmentRecyclerActComp"
-            app:destination="@id/FragmentRecyclerActComp" />
+            app:destination="@id/FragmentRecyclerActComp"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_FirstFragment_to_FragmentRecyclerActComp2"
-            app:destination="@id/FragmentRecyclerActComp" />
+            app:destination="@id/FragmentRecyclerActComp"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -43,6 +49,8 @@
         <action
             android:id="@+id/action_SecondFragment_to_FragmentRecyclerActComp2"
             app:destination="@id/FragmentRecyclerActComp" />
+        <argument android:name="clave_materia"
+            android:defaultValue="valor_predeterminado"/>
     </fragment>
     <fragment
         android:id="@+id/ThirdFragment"
@@ -83,5 +91,8 @@
         <action
             android:id="@+id/action_FragmentFormActComp_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <argument
+            android:name="nombre"
+            android:defaultValue="nulo" />
     </fragment>
 </navigation>

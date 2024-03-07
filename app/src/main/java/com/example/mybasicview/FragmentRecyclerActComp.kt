@@ -48,6 +48,9 @@ class FragmentRecyclerActComp : Fragment() {
 
     private fun onItemClick(it: ActividadComp) {
         Toast.makeText(requireContext(), "Clic a ${it.nombre}", Toast.LENGTH_SHORT).show()
+
+        val action = FragmentRecyclerActCompDirections.actionFragmentRecyclerActCompToFragmentFormActComp(it.nombre)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

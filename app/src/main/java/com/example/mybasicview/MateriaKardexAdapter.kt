@@ -40,10 +40,12 @@ class MateriaKardexAdapter(val xyz: (Materia) -> Unit) : RecyclerView.Adapter<Ma
 
         //holder.tvMateria.text = Singleton.kardex[position].materia
 
-
+        /*
         holder.itemView.setOnClickListener{
             xyz(Singleton.kardex[position])
         }
+        */
+
     }
 
     override fun getItemCount(): Int {
