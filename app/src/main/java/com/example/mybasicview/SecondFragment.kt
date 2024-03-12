@@ -1,5 +1,6 @@
 package com.example.mybasicview
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
@@ -67,7 +68,17 @@ class SecondFragment : Fragment() {
             val clave_materia = binding.edtClaveMateria.text.toString()
             val materia = binding.edtMateria.text.toString()
             val calificacion = binding.edtCalificacion.text.toString().toInt()
+
+            val dbHelper = KardexSqliteOpenHelper(requireContext())
+            val db = dbHelper.writableDatabase
+            val values = ContentValues().apply {
+                put("clave_materia", clave_materia )
+                put("materia", materia)
+                put("periodo", periodo )
+                put("calificacion", calificacion)
+            }
             if(bandera){
+                /*
                 binding.btnGuardar.text = "Actualizar"
                 val nuevosDatos = Materia(periodo, clave_materia, materia, calificacion)
                 val indiceActualizar = Singleton.kardex.indexOfFirst { it.clave_materia == claveM }
@@ -83,12 +94,22 @@ class SecondFragment : Fragment() {
                     // El elemento no se encontró, realiza alguna acción o muestra un mensaje de error
                     Snackbar.make(view, "Elemento no encontrado para actualizar", Snackbar.LENGTH_SHORT).show()
                 }
+                */
+
+                //Update data
+                val selectionArgs = arrayOf(clave_materia)
+                db.update("Materia",values,"clave_materia = ?",selectionArgs)
+
             }else{
                 binding.btnGuardar.text = "Guardar"
                 //guardar en la lista del recyclcer view
                 val materia_kardex = Materia(periodo,clave_materia,materia,calificacion)
 
-                Singleton.kardex.add(materia_kardex)
+                //Singleton.kardex.add(materia_kardex)
+
+                //Insert data
+
+                db?.insert("Materia", null, values)
             }
 
             //

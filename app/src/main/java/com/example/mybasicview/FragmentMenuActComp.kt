@@ -50,10 +50,9 @@ class FragmentMenuActComp : Fragment() {
             val materiaEncontrada = Singleton.act_comp.find { it.nombre == args.nombre }
             if (materiaEncontrada != null) {
                 // Asigna los valores a los EditText
-                binding.edtNombre.text =
-                    Editable.Factory.getInstance().newEditable(materiaEncontrada.nombre)
+                binding.edtNombre.setText(materiaEncontrada.nombre)
                 binding.edtCreditos.text =
-                    Editable.Factory.getInstance().newEditable("" + materiaEncontrada.creditos)
+                    Editable.Factory.getInstance().newEditable(materiaEncontrada.creditos.toString())
             } else {
                 Snackbar.make(view, "Act_Comp no encontrada", Snackbar.LENGTH_SHORT).show()
             }
@@ -80,7 +79,7 @@ class FragmentMenuActComp : Fragment() {
                 if (indiceActualizar != -1) {
                     // Actualiza el elemento en la lista
                     Singleton.act_comp[indiceActualizar] = nuevosDatos
-                    // Puedes también actualizar los EditText si es necesario
+
                     binding.edtNombre.text =
                         Editable.Factory.getInstance().newEditable(nuevosDatos.nombre)
                     binding.edtCreditos.text =

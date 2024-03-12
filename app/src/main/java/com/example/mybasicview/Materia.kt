@@ -1,8 +1,8 @@
 package com.example.mybasicview
 
 data class Materia(
-    val periodo: String,
-    val clave_materia: String,
-    val materia: String,
-    val calificacion: Int
+    var periodo: String,
+    public var clave_materia: String,
+    var materia: String,
+    var calificacion: Int
 )

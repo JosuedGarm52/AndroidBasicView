@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
         //agregado por mi
         //otro boton que manda al materia recyclerview
-        /*
+
         binding.btnMateria.setOnClickListener { view ->
             val currentDestinationId = findNavController(R.id.nav_host_fragment_content_main).currentDestination?.id
 
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                         .setAction("Action", null).show()
                 }
             }
-        }*/
+        }
 
         val myNavController = findNavController(R.id.nav_host_fragment_content_main)
         myAppBarConfiguration = AppBarConfiguration(myNavController.graph)

@@ -1,6 +1,6 @@
 package com.example.mybasicview
 
 data class ActividadComp(
-    val nombre: String,
-    val creditos: Int
+    var nombre: String,
+    var creditos: Int
 )
