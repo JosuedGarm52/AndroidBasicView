@@ -13,6 +13,43 @@ class KardexSqliteOpenHelper (context: Context)
                 "calificacion INTEGER)")
         db.execSQL(SQL_CREATE_ENTRIES)
     }
+    fun getAllKardexItems(): List<Materia> {
+        val kardexList = mutableListOf<Materia>()
+        val db = writableDatabase
+        val cursor = db.query(
+            "Materia", // Table name
+            null, // Select all columns (null)
+            null, // No selection criteria
+            null, // No selection arguments
+            null, // No group by
+            null, // No having
+            null  // No order by
+        )
+
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+
+                    val periodo = cursor.getString(cursor.getColumnIndexOrThrow("periodo"))
+                    val claveMateria = cursor.getString(cursor.getColumnIndexOrThrow("clave_materia"))
+                    val materia = cursor.getString(cursor.getColumnIndexOrThrow("materia"))
+                    val calificacion = cursor.getInt(cursor.getColumnIndexOrThrow("calificacion"))
+                    // Create a Materia object
+                    val materiaKardex = Materia(periodo, claveMateria, materia, calificacion)
+
+                    // Add the Materia object to Singleton.kardex (assuming Singleton is valid)
+                    Singleton.kardex.add(materiaKardex)
+
+                    kardexList.add(Materia(periodo, claveMateria, materia, calificacion))
+                } while (cursor.moveToNext())
+            }
+        } finally {
+            cursor.close()
+            db.close() // Close the database connection
+        }
+
+        return kardexList
+    }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // This database is only a cache for online data, so its upgrade policy is

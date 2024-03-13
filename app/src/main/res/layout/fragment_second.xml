@@ -20,6 +20,8 @@
         android:inputType="text"
         android:minHeight="48dp"
         android:text="12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtMateria" />
 
@@ -34,6 +36,8 @@
         android:inputType="text"
         android:minHeight="48dp"
         android:text="Español"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtClaveMateria" />
 
@@ -49,6 +53,8 @@
         android:minHeight="48dp"
         android:text="Primer periodo"
         android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,6 +69,8 @@
         android:inputType="text"
         android:minHeight="48dp"
         android:text="a75"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtPeriodo" />
 
@@ -74,6 +82,8 @@
         android:layout_marginBottom="252dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtCalificacion"
         app:layout_constraintVertical_bias="1.0" />

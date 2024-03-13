@@ -40,6 +40,12 @@ class FirstFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }*/
 
+
+
+        Singleton.kardex.clear()
+        val db = KardexSqliteOpenHelper(requireContext())
+        db.getAllKardexItems()
+
         val adapter = MateriaKardexAdapter{
             onItemClick(it)
         }
