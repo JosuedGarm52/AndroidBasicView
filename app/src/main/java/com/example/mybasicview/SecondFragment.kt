@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.room.Room
 import com.example.mybasicview.databinding.FragmentSecondBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -65,14 +66,22 @@ class SecondFragment : Fragment() {
             val materia = binding.edtMateria.text.toString()
             val calificacion = binding.edtCalificacion.text.toString().toInt()
 
-            val dbHelper = KardexSqliteOpenHelper(requireContext())
-            val db = dbHelper.writableDatabase
+            //val dbHelper = KardexSqliteOpenHelper(requireContext())
+            //val db = dbHelper.writableDatabase
             val values = ContentValues().apply {
                 put("clave_materia", clave_materia )
                 put("materia", materia)
                 put("periodo", periodo )
                 put("calificacion", calificacion)
             }
+
+            val db = Room.databaseBuilder(
+                requireContext(),
+                KardexDataBase::class.java, "KardexRoom"
+            ).allowMainThreadQueries().build() //AllowMain.. metodo para forzar en HILO Main
+
+            val materiaDao = db.materiaDAO()
+            val materia_kardex = Materia(periodo,clave_materia,materia,calificacion)
             if(bandera){
                 /*
                 binding.btnGuardar.text = "Actualizar"
@@ -93,19 +102,21 @@ class SecondFragment : Fragment() {
                 */
 
                 //Update data
-                val selectionArgs = arrayOf(clave_materia)
-                db.update("Materia",values,"clave_materia = ?",selectionArgs)
+                //val selectionArgs = arrayOf(clave_materia)
+                //db.update("Materia",values,"clave_materia = ?",selectionArgs)
+                materiaDao.update(materia_kardex)
 
             }else{
                 binding.btnGuardar.text = "Guardar"
                 //guardar en la lista del recyclcer view
-                val materia_kardex = Materia(periodo,clave_materia,materia,calificacion)
+
 
                 //Singleton.kardex.add(materia_kardex)
 
                 //Insert data
 
-                db?.insert("Materia", null, values)
+                //db?.insert("Materia", null, values)
+                materiaDao.insertAll(materia_kardex)
             }
 
             //

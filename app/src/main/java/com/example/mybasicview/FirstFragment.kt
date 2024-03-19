@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.example.mybasicview.databinding.FragmentFirstBinding
 
 /**
@@ -42,8 +43,16 @@ class FirstFragment : Fragment() {
 
 
         Singleton.kardex.clear()
-        val db = KardexSqliteOpenHelper(requireContext())
-        db.getAllKardexItems()
+        //val db = KardexSqliteOpenHelper(requireContext())
+        //db.getAllKardexItems()
+        val db = Room.databaseBuilder(
+            requireContext(),
+            KardexDataBase::class.java, "KardexRoom"
+        ).allowMainThreadQueries().build()
+
+        val MateriaDAO = db.materiaDAO()
+
+        Singleton.kardex.addAll(MateriaDAO.getAll())
 
         val adapter = MateriaKardexAdapter{
             onItemClick(it)
