@@ -18,19 +18,19 @@ class KardexSqliteOpenHelper (context: Context)
         val db = writableDatabase
         val cursor = db.query(
             "Materia", // Table name
-            null, // Select all columns (null)
+            null, // Select all columns (null) //arrayOf("clave_materia","materia") //etc
             null, // No selection criteria
             null, // No selection arguments
             null, // No group by
             null, // No having
-            null  // No order by
+            null  // No order by //"materia"
         )
 
         try {
             if (cursor.moveToFirst()) {
                 do {
 
-                    val periodo = cursor.getString(cursor.getColumnIndexOrThrow("periodo"))
+                    val periodo = cursor.getString(cursor.getColumnIndexOrThrow("periodo"))//cursor.getString(0) //tambien se puede
                     val claveMateria = cursor.getString(cursor.getColumnIndexOrThrow("clave_materia"))
                     val materia = cursor.getString(cursor.getColumnIndexOrThrow("materia"))
                     val calificacion = cursor.getInt(cursor.getColumnIndexOrThrow("calificacion"))

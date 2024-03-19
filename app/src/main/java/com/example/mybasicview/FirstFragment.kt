@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mybasicview.databinding.FragmentFirstBinding
-import kotlin.math.log
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -57,7 +56,7 @@ class FirstFragment : Fragment() {
         Log.d("FirstFragment", "onItem clic")
         Toast.makeText(requireContext(), "Clic a ${it.materia}", Toast.LENGTH_SHORT).show()
 
-        val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(it.clave_materia)
+        val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(it.claveMateria)
         findNavController().navigate(action)
     }
 

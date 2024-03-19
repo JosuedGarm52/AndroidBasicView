@@ -5,13 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.core.view.MenuProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mybasicview.databinding.FragmentSecondBinding
@@ -49,11 +45,11 @@ class SecondFragment : Fragment() {
             val edtCalificacion: EditText = view.findViewById(R.id.edtCalificacion)
             val argum = args.claveMateria
             //encontar elemento en la lista del recyclcer view
-            val materiaEncontrada = Singleton.kardex.find { it.clave_materia == argum }
+            val materiaEncontrada = Singleton.kardex.find { it.claveMateria == argum }
             if (materiaEncontrada != null) {
                 // Asigna los valores a los EditText
                 binding.edtPeriodo.text = Editable.Factory.getInstance().newEditable(materiaEncontrada.periodo)
-                edtClaveMateria.text = Editable.Factory.getInstance().newEditable(materiaEncontrada.clave_materia)
+                edtClaveMateria.text = Editable.Factory.getInstance().newEditable(materiaEncontrada.claveMateria)
                 edtMateria.text = Editable.Factory.getInstance().newEditable(materiaEncontrada.materia)
                 edtCalificacion.text = Editable.Factory.getInstance().newEditable(materiaEncontrada.calificacion.toString())
             } else {
