@@ -6,11 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.mybasicview.databinding.FragmentFirstBinding
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -32,15 +38,14 @@ class FirstFragment : Fragment() {
         return binding.root
 
     }
-
+    //agg
+    private val viewModel: KardexViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         /*binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }*/
-
-
 
         Singleton.kardex.clear()
         //val db = KardexSqliteOpenHelper(requireContext())
@@ -54,11 +59,33 @@ class FirstFragment : Fragment() {
 
         Singleton.kardex.addAll(MateriaDAO.getAll())
 
+        /*
         val adapter = MateriaKardexAdapter{
             onItemClick(it)
         }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        */
+
+        // Recolecta el estado del viewModel utilizando viewLifecycleOwner.lifecycleScope
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Crear el adaptador dentro del ciclo de vida del fragmento
+                val adapter = MateriaKardexAdapter { materia ->
+                    onItemClick(materia)
+                }
+
+                // Asignar el adaptador al RecyclerView
+                binding.recyclerView.adapter = adapter
+                binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+                // Recolecta el estado del viewModel utilizando viewLifecycleOwner.lifecycleScope
+                viewModel.uiState.collect { materia ->
+                    val materiaList = listOf(materia)
+                    adapter.submitList(materiaList)
+                }
+            }
+        }
     }
 
     private fun onItemClick(it: Materia) {

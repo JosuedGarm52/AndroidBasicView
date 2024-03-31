@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Toast
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 
-class MateriaKardexAdapter(val xyz: (Materia) -> Unit) : RecyclerView.Adapter<MateriaKardexAdapter.ViewHolder>() {
+
+class MateriaKardexAdapter(private val xyz: (Materia) -> Unit) : ListAdapter<Materia, MateriaKardexAdapter.ViewHolder>(DiffCallback()) {
     class ViewHolder(materia_kardex_item: View, val xyz: (Materia) -> Unit) : RecyclerView.ViewHolder(materia_kardex_item) {
         val tvMateria = materia_kardex_item.findViewById<TextView>(R.id.tvMateria)
         val tvCalificacion = materia_kardex_item.findViewById<TextView>(R.id.tvCalificacion)
@@ -50,5 +53,15 @@ class MateriaKardexAdapter(val xyz: (Materia) -> Unit) : RecyclerView.Adapter<Ma
 
     override fun getItemCount(): Int {
         return Singleton.kardex.size
+    }
+
+    class DiffCallback : DiffUtil.ItemCallback<Materia>() {
+        override fun areItemsTheSame(oldItem: Materia, newItem: Materia): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Materia, newItem: Materia): Boolean {
+            return oldItem == newItem
+        }
     }
 }
