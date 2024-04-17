@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.room.Room
@@ -20,6 +22,8 @@ import com.google.android.material.snackbar.Snackbar
 class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
+
+    val secondFragmentViewModel: SecondFragmentViewModel by viewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -39,6 +43,17 @@ class SecondFragment : Fragment() {
     var claveM = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /*
+        secondFragmentViewModel.registroGuardado.observe(viewLifecycleOwner, Observer{
+            if(it){
+
+            }
+        })
+        */
+
+
+
         if(args.claveMateria != "valor_predeterminado"){
             val edtPeriodo: EditText = view.findViewById(R.id.edtPeriodo)
             val edtClaveMateria: EditText = view.findViewById(R.id.edtClaveMateria)
@@ -66,6 +81,9 @@ class SecondFragment : Fragment() {
             val materia = binding.edtMateria.text.toString()
             val calificacion = binding.edtCalificacion.text.toString().toInt()
 
+            val materia_kardex1 = Materia(periodo,clave_materia,materia,calificacion)
+
+            secondFragmentViewModel.insertMateria(materia_kardex1)
             //val dbHelper = KardexSqliteOpenHelper(requireContext())
             //val db = dbHelper.writableDatabase
             val values = ContentValues().apply {
@@ -119,8 +137,8 @@ class SecondFragment : Fragment() {
                 materiaDao.insertAll(materia_kardex)
             }
 
-            //
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            // comentario temporal, quitar para moverse
+            //findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
 
 
