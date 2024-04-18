@@ -5,11 +5,12 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MateriaDAO {
     @Query("SELECT * FROM Materia")
-    fun getAll(): List<Materia>
+    fun getAll(): Flow<List<Materia>>
 
     //@Query("SELECT * FROM user WHERE uid IN (:userIds)")
     //fun loadAllByIds(userIds: IntArray): List<User>

@@ -15,7 +15,8 @@ class SecondFragmentViewModel : ViewModel() {
     */
 
     fun insertMateria(materia: Materia){
-
         //_registroGuardado.value = true
+
+
     }
 }
