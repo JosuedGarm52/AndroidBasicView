@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 
 
-class MateriaKardexAdapter(private val xyz: (Materia) -> Unit) : ListAdapter<Materia, MateriaKardexAdapter.ViewHolder>(DiffCallback()) {
+class MateriaKardexAdapter(private val xyz: (Materia) -> Unit) : ListAdapter<Materia, MateriaKardexAdapter.ViewHolder>(MateriaComparator()){
     class ViewHolder(materia_kardex_item: View, val xyz: (Materia) -> Unit) : RecyclerView.ViewHolder(materia_kardex_item) {
         val tvMateria = materia_kardex_item.findViewById<TextView>(R.id.tvMateria)
         val tvCalificacion = materia_kardex_item.findViewById<TextView>(R.id.tvCalificacion)
@@ -39,29 +39,18 @@ class MateriaKardexAdapter(private val xyz: (Materia) -> Unit) : ListAdapter<Mat
         holder: MateriaKardexAdapter.ViewHolder,
         position: Int
     ) {
-        holder.bind(Singleton.kardex[position])
+        val materia_kardex = getItem(position)
+        holder.bind(materia_kardex)
 
-        //holder.tvMateria.text = Singleton.kardex[position].materia
-
-        /*
-        holder.itemView.setOnClickListener{
-            xyz(Singleton.kardex[position])
-        }
-        */
 
     }
-
-    override fun getItemCount(): Int {
-        return Singleton.kardex.size
-    }
-
-    class DiffCallback : DiffUtil.ItemCallback<Materia>() {
+    class MateriaComparator : DiffUtil.ItemCallback<Materia>() {
         override fun areItemsTheSame(oldItem: Materia, newItem: Materia): Boolean {
-            return oldItem == newItem
+            return oldItem === newItem
         }
 
         override fun areContentsTheSame(oldItem: Materia, newItem: Materia): Boolean {
-            return oldItem == newItem
+            return oldItem.claveMateria == newItem.claveMateria
         }
     }
 }

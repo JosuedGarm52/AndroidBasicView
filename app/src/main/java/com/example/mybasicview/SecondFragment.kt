@@ -81,9 +81,9 @@ class SecondFragment : Fragment() {
             val materia = binding.edtMateria.text.toString()
             val calificacion = binding.edtCalificacion.text.toString().toInt()
 
-            val materia_kardex1 = Materia(periodo,clave_materia,materia,calificacion)
+            //val materia_kardex1 = Materia(periodo,clave_materia,materia,calificacion)
 
-            secondFragmentViewModel.insertMateria(materia_kardex1)
+            //secondFragmentViewModel.insertMateria(materia_kardex1)
             //val dbHelper = KardexSqliteOpenHelper(requireContext())
             //val db = dbHelper.writableDatabase
             val values = ContentValues().apply {
