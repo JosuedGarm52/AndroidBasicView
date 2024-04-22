@@ -3,6 +3,7 @@ package com.example.mybasicview
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +21,7 @@ interface MateriaDAO {
     fun findByName(first: String, last: String): User
     */
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg m : Materia)
 
     @Update

@@ -57,6 +57,14 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
 
+    val lifeCycle = "2.7.0"
+
+    // Lifecycle components
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycle")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycle")
+    implementation("androidx.lifecycle:lifecycle-common-java8:$lifeCycle")
+
+
     // To use Kotlin Symbol Processing (KSP)
     ksp("androidx.room:room-compiler:$room_version")
 }

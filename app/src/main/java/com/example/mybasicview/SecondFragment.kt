@@ -23,7 +23,9 @@ class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
 
-    val secondFragmentViewModel: SecondFragmentViewModel by viewModels()
+    val secondFragmentViewModel: SecondFragmentViewModel by viewModels(){
+        SecondFragmentViewModelFactory( (requireActivity().application as KardexApplication).repository )
+    }
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -43,16 +45,6 @@ class SecondFragment : Fragment() {
     var claveM = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        /*
-        secondFragmentViewModel.registroGuardado.observe(viewLifecycleOwner, Observer{
-            if(it){
-
-            }
-        })
-        */
-
-
 
         if(args.claveMateria != "valor_predeterminado"){
             val edtPeriodo: EditText = view.findViewById(R.id.edtPeriodo)
@@ -81,11 +73,6 @@ class SecondFragment : Fragment() {
             val materia = binding.edtMateria.text.toString()
             val calificacion = binding.edtCalificacion.text.toString().toInt()
 
-            //val materia_kardex1 = Materia(periodo,clave_materia,materia,calificacion)
-
-            //secondFragmentViewModel.insertMateria(materia_kardex1)
-            //val dbHelper = KardexSqliteOpenHelper(requireContext())
-            //val db = dbHelper.writableDatabase
             val values = ContentValues().apply {
                 put("clave_materia", clave_materia )
                 put("materia", materia)
@@ -93,52 +80,17 @@ class SecondFragment : Fragment() {
                 put("calificacion", calificacion)
             }
 
-            val db = Room.databaseBuilder(
-                requireContext(),
-                KardexDataBase::class.java, "KardexRoom"
-            ).allowMainThreadQueries().build() //AllowMain.. metodo para forzar en HILO Main
 
-            val materiaDao = db.materiaDAO()
             val materia_kardex = Materia(periodo,clave_materia,materia,calificacion)
             if(bandera){
-                /*
-                binding.btnGuardar.text = "Actualizar"
-                val nuevosDatos = Materia(periodo, clave_materia, materia, calificacion)
-                val indiceActualizar = Singleton.kardex.indexOfFirst { it.clave_materia == claveM }
-                if (indiceActualizar != -1) {
-                    // Actualiza el elemento en la lista
-                    Singleton.kardex[indiceActualizar] = nuevosDatos
-                    // Puedes también actualizar los EditText si es necesario
-                    binding.edtPeriodo.text = Editable.Factory.getInstance().newEditable(nuevosDatos.periodo)
-                    binding.edtClaveMateria.text = Editable.Factory.getInstance().newEditable(nuevosDatos.clave_materia)
-                    binding.edtMateria.text = Editable.Factory.getInstance().newEditable(nuevosDatos.materia)
-                    binding.edtCalificacion.text = Editable.Factory.getInstance().newEditable(nuevosDatos.calificacion.toString())
-                } else {
-                    // El elemento no se encontró, realiza alguna acción o muestra un mensaje de error
-                    Snackbar.make(view, "Elemento no encontrado para actualizar", Snackbar.LENGTH_SHORT).show()
-                }
-                */
 
-                //Update data
-                //val selectionArgs = arrayOf(clave_materia)
-                //db.update("Materia",values,"clave_materia = ?",selectionArgs)
-                materiaDao.update(materia_kardex)
-
+                binding.btnGuardar.text = "Editar"
             }else{
                 binding.btnGuardar.text = "Guardar"
-                //guardar en la lista del recyclcer view
 
-
-                //Singleton.kardex.add(materia_kardex)
-
-                //Insert data
-
-                //db?.insert("Materia", null, values)
-                materiaDao.insertAll(materia_kardex)
             }
 
-            // comentario temporal, quitar para moverse
-            //findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
 
 

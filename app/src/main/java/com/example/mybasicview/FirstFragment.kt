@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -29,6 +30,10 @@ class FirstFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    val firstFragmentViewModel : FirstFragmentViewModel by viewModels{
+        FirstFragmentViewModelFactory( (requireActivity().application as KardexApplication).repository )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,49 +48,21 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }*/
 
-        Singleton.kardex.clear()
-        //val db = KardexSqliteOpenHelper(requireContext())
-        //db.getAllKardexItems()
-        val db = Room.databaseBuilder(
-            requireContext(),
-            KardexDataBase::class.java, "KardexRoom"
-        ).allowMainThreadQueries().build()
-
-        val MateriaDAO = db.materiaDAO()
-
-        Singleton.kardex.addAll(MateriaDAO.getAll())
-
-        /*
-        val adapter = MateriaKardexAdapter{
-            onItemClick(it)
+        // Crear el adaptador dentro del ciclo de vida del fragmento
+        val adapter = MateriaKardexAdapter { materia ->
+            onItemClick(materia)
         }
+
+        // Asignar el adaptador al RecyclerView
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        */
 
-        // Recolecta el estado del viewModel utilizando viewLifecycleOwner.lifecycleScope
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                // Crear el adaptador dentro del ciclo de vida del fragmento
-                val adapter = MateriaKardexAdapter { materia ->
-                    onItemClick(materia)
-                }
-
-                // Asignar el adaptador al RecyclerView
-                binding.recyclerView.adapter = adapter
-                binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-                // Recolecta el estado del viewModel utilizando viewLifecycleOwner.lifecycleScope
-                viewModel.uiState.collect { materia ->
-                    val materiaList = listOf(materia)
-                    adapter.submitList(materiaList)
-                }
+        firstFragmentViewModel.materiasKardex.observe(viewLifecycleOwner, Observer {materias ->
+            materias?.let{
+                adapter.submitList(it)
             }
-        }
+        })
     }
 
     private fun onItemClick(it: Materia) {
