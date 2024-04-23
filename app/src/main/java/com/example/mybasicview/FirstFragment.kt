@@ -20,7 +20,7 @@ import com.example.mybasicview.databinding.FragmentFirstBinding
 import kotlinx.coroutines.launch
 
 /**
- * A simple [Fragment] subclass as the default destination in the navigation.
+ * A simple [Fragment]  subclass as the default destination in the navigation.
  */
 class FirstFragment : Fragment() {
 
@@ -44,10 +44,9 @@ class FirstFragment : Fragment() {
 
     }
     //agg
-    private val viewModel: KardexViewModel by viewModels()
+    //private val viewModel: KardexViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         // Crear el adaptador dentro del ciclo de vida del fragmento
         val adapter = MateriaKardexAdapter { materia ->

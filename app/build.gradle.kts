@@ -56,6 +56,8 @@ dependencies {
 
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
+    //optional - kotlin extensions and corutines support for room
+    implementation("androidx.room:room-ktx:$room_version")
 
     val lifeCycle = "2.7.0"
 
