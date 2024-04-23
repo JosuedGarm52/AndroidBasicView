@@ -82,6 +82,7 @@ class SecondFragment : Fragment() {
 
 
             val materia_kardex = Materia(periodo,clave_materia,materia,calificacion)
+            secondFragmentViewModel.insertMateria(materia_kardex)
             if(bandera){
 
                 binding.btnGuardar.text = "Editar"
